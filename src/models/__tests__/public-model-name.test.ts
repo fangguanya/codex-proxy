@@ -56,7 +56,7 @@ describe("getPublicModelName", () => {
   });
 
   it("never leaks suffixes in outward-facing model names", () => {
-    expect(getPublicModelName("qwen_3_5_ksg_gmzz-high-fast")).toBe("qwen_3_5_ksg_gmzz");
-    expect(getPublicModelName("gpt-5.4-high-fast")).toBe("qwen_3_5_ksg_gmzz");
+    expect(getPublicModelName("qwen_3_5_ksg_gmzz-high")).toBe("qwen_3_5_ksg_gmzz");
+    expect(getPublicModelName("gpt-5.4-high")).toBe("qwen_3_5_ksg_gmzz");
   });
 });

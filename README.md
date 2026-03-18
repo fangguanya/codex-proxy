@@ -262,8 +262,8 @@ curl http://localhost:8080/v1/chat/completions \
 | `gpt-5.1-codex-mini` | — | medium / high | 轻量快速编程模型 |
 | `gpt-5-codex-mini` | — | medium / high | 轻量编程模型 |
 
-> **模型名后缀**：在任意模型名后追加 `-fast` 启用 Fast 模式，追加 `-high`/`-low` 等切换推理等级。
-> 例如：`codex-fast`、`gpt-5.2-codex-high-fast`。
+> **模型名后缀**：在任意模型名后追加 `-high`/`-low` 等切换推理等级。
+> 例如：`codex-high`、`gpt-5.2-codex-high`。
 >
 > **注意**：`gpt-5.4`、`gpt-5.3-codex` 系列已从 free 账号移除，plus 及以上账号仍可使用。
 > 模型列表由后端动态获取，会自动同步最新可用模型。
@@ -279,9 +279,7 @@ export ANTHROPIC_BASE_URL=http://localhost:8080
 export ANTHROPIC_API_KEY=your-api-key
 # 默认使用 gpt-5.2-codex（codex 别名），无需设置 ANTHROPIC_MODEL
 # 如需切换模型或启用后缀：
-# export ANTHROPIC_MODEL=codex-fast              # → gpt-5.2-codex + Fast 模式
 # export ANTHROPIC_MODEL=codex-high              # → gpt-5.2-codex + high 推理
-# export ANTHROPIC_MODEL=codex-high-fast         # → gpt-5.2-codex + high + Fast
 # export ANTHROPIC_MODEL=gpt-5.2                 # → 通用 GPT-5.2
 # export ANTHROPIC_MODEL=gpt-5.1-codex-mini      # → 轻量快速模型
 

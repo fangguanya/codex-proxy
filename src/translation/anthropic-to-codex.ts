@@ -180,7 +180,7 @@ export function translateAnthropicToCodexRequest(
     input.push({ role: "user", content: "" });
   }
 
-  // Resolve model (suffix parsing extracts service_tier and reasoning_effort)
+  // Resolve model (suffix parsing extracts reasoning_effort)
   const parsed = parseModelName(req.model);
   const modelId = parsed.modelId;
   const modelInfo = getModelInfo(modelId);
@@ -213,15 +213,6 @@ export function translateAnthropicToCodexRequest(
     modelInfo?.defaultReasoningEffort ??
     config.model.default_reasoning_effort;
   request.reasoning = { summary: "auto", ...(effort ? { effort } : {}) };
-
-  // Service tier: suffix > config default
-  const serviceTier =
-    parsed.serviceTier ??
-    config.model.default_service_tier ??
-    null;
-  if (serviceTier) {
-    request.service_tier = serviceTier;
-  }
 
   return request;
 }

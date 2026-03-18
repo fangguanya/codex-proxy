@@ -188,16 +188,6 @@ export function translateToCodexRequest(
     config.model.default_reasoning_effort;
   request.reasoning = { summary: "auto", ...(effort ? { effort } : {}) };
 
-  // Service tier: explicit API field > suffix > config default
-  const serviceTier =
-    req.service_tier ??
-    parsed.serviceTier ??
-    config.model.default_service_tier ??
-    null;
-  if (serviceTier) {
-    request.service_tier = serviceTier;
-  }
-
   // Response format: translate response_format → text.format
   let tupleSchema: Record<string, unknown> | null = null;
   if (req.response_format && req.response_format.type !== "text") {

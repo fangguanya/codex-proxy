@@ -182,8 +182,8 @@ curl http://localhost:8080/v1/chat/completions \
 | `gpt-5.1-codex-mini` | — | medium / high | Lightweight, fast coding model |
 | `gpt-5-codex-mini` | — | medium / high | Lightweight coding model |
 
-> **Model name suffixes**: Append `-fast` to any model name to enable Fast mode, or `-high`/`-low` etc. to change reasoning effort.
-> Examples: `codex-fast`, `gpt-5.2-codex-high-fast`.
+> **Model name suffixes**: Append `-high`/`-low` etc. to change reasoning effort.
+> Examples: `codex-high`, `gpt-5.2-codex-high`.
 >
 > **Note**: `gpt-5.4` and `gpt-5.3-codex` families have been removed for free accounts. Plus and above accounts retain access.
 > Models are dynamically fetched from the backend and will automatically sync the latest available catalog.
@@ -199,9 +199,7 @@ export ANTHROPIC_BASE_URL=http://localhost:8080
 export ANTHROPIC_API_KEY=your-api-key
 # Default model is gpt-5.2-codex (codex alias), no need to set ANTHROPIC_MODEL
 # To switch models or use suffixes:
-# export ANTHROPIC_MODEL=codex-fast              # → gpt-5.2-codex + Fast mode
 # export ANTHROPIC_MODEL=codex-high              # → gpt-5.2-codex + high reasoning
-# export ANTHROPIC_MODEL=codex-high-fast         # → gpt-5.2-codex + high + Fast
 # export ANTHROPIC_MODEL=gpt-5.2                 # → General-purpose GPT-5.2
 # export ANTHROPIC_MODEL=gpt-5.1-codex-mini      # → Lightweight, fast model
 

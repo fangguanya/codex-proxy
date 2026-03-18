@@ -29,8 +29,6 @@ export interface CodexResponsesRequest {
   store: false;
   /** Optional: reasoning effort + summary mode */
   reasoning?: { effort?: string; summary?: string };
-  /** Optional: service tier ("fast" / "flex") */
-  service_tier?: string | null;
   /** Optional: tools available to the model */
   tools?: unknown[];
   /** Optional: tool choice strategy */
@@ -289,7 +287,7 @@ export class CodexApi {
     headers["OpenAI-Beta"] = "responses_websockets=2026-02-06";
     headers["x-openai-internal-codex-residency"] = "us";
 
-    // Build flat WebSocket message — omit store, stream, service_tier
+    // Build flat WebSocket message — omit store, stream
     const wsRequest: WsCreateRequest = {
       type: "response.create",
       model: request.model,
@@ -328,7 +326,7 @@ export class CodexApi {
     headers["OpenAI-Beta"] = "responses_websockets=2026-02-06";
 
     // Strip non-API fields from body — not supported by HTTP SSE.
-    const { service_tier: _st, previous_response_id: _pid, useWebSocket: _ws, ...bodyFields } = request;
+    const { previous_response_id: _pid, useWebSocket: _ws, ...bodyFields } = request;
     const body = JSON.stringify(bodyFields);
 
     // No wall-clock timeout for streaming SSE — header timeout + AbortSignal provide protection

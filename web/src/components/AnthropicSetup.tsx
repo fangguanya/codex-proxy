@@ -6,10 +6,9 @@ interface AnthropicSetupProps {
   apiKey: string;
   selectedModel: string;
   reasoningEffort: string;
-  serviceTier: string | null;
 }
 
-export function AnthropicSetup({ apiKey, selectedModel, reasoningEffort, serviceTier }: AnthropicSetupProps) {
+export function AnthropicSetup({ apiKey, selectedModel, reasoningEffort }: AnthropicSetupProps) {
   const t = useT();
 
   const origin = typeof window !== "undefined" ? window.location.origin : "http://localhost:8080";
@@ -18,9 +17,8 @@ export function AnthropicSetup({ apiKey, selectedModel, reasoningEffort, service
   const displayModel = useMemo(() => {
     let name = selectedModel;
     if (reasoningEffort && reasoningEffort !== "medium") name += `-${reasoningEffort}`;
-    if (serviceTier === "fast") name += "-fast";
     return name;
-  }, [selectedModel, reasoningEffort, serviceTier]);
+  }, [selectedModel, reasoningEffort]);
 
   const envLines = useMemo(() => ({
     ANTHROPIC_BASE_URL: origin,

@@ -148,10 +148,9 @@ interface CodeExamplesProps {
   apiKey: string;
   model: string;
   reasoningEffort: string;
-  serviceTier: string | null;
 }
 
-export function CodeExamples({ baseUrl, apiKey, model, reasoningEffort, serviceTier }: CodeExamplesProps) {
+export function CodeExamples({ baseUrl, apiKey, model, reasoningEffort }: CodeExamplesProps) {
   const t = useT();
   const [protocol, setProtocol] = useState<Protocol>("openai");
   const [codeLang, setCodeLang] = useState<CodeLang>("python");
@@ -162,9 +161,8 @@ export function CodeExamples({ baseUrl, apiKey, model, reasoningEffort, serviceT
   const displayModel = useMemo(() => {
     let name = model;
     if (reasoningEffort && reasoningEffort !== "medium") name += `-${reasoningEffort}`;
-    if (serviceTier === "fast") name += "-fast";
     return name;
-  }, [model, reasoningEffort, serviceTier]);
+  }, [model, reasoningEffort]);
 
   // When effort/speed are embedded as suffixes, don't also show separate reasoning_effort param
   const explicitEffort = displayModel === model ? reasoningEffort : "medium";

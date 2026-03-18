@@ -11,7 +11,6 @@ client:
 model:
   default: qwen_3_5_ksg_gmzz
   default_reasoning_effort: medium
-  default_service_tier: null
   inject_desktop_context: false
   suppress_desktop_directives: true
 auth:

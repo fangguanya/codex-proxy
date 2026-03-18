@@ -12,8 +12,6 @@ interface ApiConfigProps {
   modelFamilies: ModelFamily[];
   selectedEffort: string;
   onEffortChange: (effort: string) => void;
-  selectedSpeed: string | null;
-  onSpeedChange: (speed: string | null) => void;
 }
 
 const EFFORT_LABELS: Record<string, string> = {
@@ -34,8 +32,6 @@ export function ApiConfig({
   modelFamilies,
   selectedEffort,
   onEffortChange,
-  selectedSpeed,
-  onSpeedChange,
 }: ApiConfigProps) {
   const t = useT();
 
@@ -155,30 +151,6 @@ export function ApiConfig({
                   ))}
                 </div>
               )}
-              {/* Speed toggle — Standard / Fast */}
-              <div class="flex items-center gap-1.5 mt-2">
-                <span class="text-[0.68rem] font-medium text-slate-500 dark:text-text-dim mr-1">{t("speed")}</span>
-                <button
-                  onClick={() => onSpeedChange(null)}
-                  class={`px-2.5 py-1 text-[0.7rem] font-semibold rounded transition-all ${
-                    selectedSpeed === null
-                      ? "bg-primary text-white shadow-sm"
-                      : "bg-white dark:bg-[#21262d] text-slate-600 dark:text-text-dim border border-gray-200 dark:border-border-dark hover:border-primary/50"
-                  }`}
-                >
-                  {t("speedStandard")}
-                </button>
-                <button
-                  onClick={() => onSpeedChange("fast")}
-                  class={`px-2.5 py-1 text-[0.7rem] font-semibold rounded transition-all ${
-                    selectedSpeed === "fast"
-                      ? "bg-primary text-white shadow-sm"
-                      : "bg-white dark:bg-[#21262d] text-slate-600 dark:text-text-dim border border-gray-200 dark:border-border-dark hover:border-primary/50"
-                  }`}
-                >
-                  {t("speedFast")}
-                </button>
-              </div>
             </div>
           ) : (
             <div class="relative">

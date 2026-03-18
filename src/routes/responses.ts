@@ -286,7 +286,7 @@ export function createResponsesRoutes(
       });
     }
 
-    // Resolve model (suffix parsing extracts service_tier and reasoning_effort)
+    // Resolve model (suffix parsing extracts reasoning_effort)
     const rawModel = typeof body.model === "string" ? body.model : "codex";
     const parsed = parseModelName(rawModel);
     const modelId = resolveModelId(parsed.modelId);
@@ -324,16 +324,6 @@ export function createResponsesRoutes(
         ? body.reasoning.summary
         : "auto";
     codexRequest.reasoning = { summary, ...(effort ? { effort } : {}) };
-
-    // Service tier: explicit body > suffix > config default
-    const serviceTier =
-      (typeof body.service_tier === "string" ? body.service_tier : null) ??
-      parsed.serviceTier ??
-      config.model.default_service_tier ??
-      null;
-    if (serviceTier) {
-      codexRequest.service_tier = serviceTier;
-    }
 
     // Pass through tools and tool_choice as-is
     if (Array.isArray(body.tools) && body.tools.length > 0) {

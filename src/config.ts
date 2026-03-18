@@ -22,7 +22,6 @@ const ConfigSchema = z.object({
   model: z.object({
     default: z.string().default("gpt-5.2-codex"),
     default_reasoning_effort: z.string().default("medium"),
-    default_service_tier: z.string().nullable().default(null),
     inject_desktop_context: z.boolean().default(false),
     suppress_desktop_directives: z.boolean().default(true),
   }),

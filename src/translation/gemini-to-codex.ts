@@ -228,15 +228,6 @@ export function translateGeminiToCodexRequest(
     config.model.default_reasoning_effort;
   request.reasoning = { summary: "auto", ...(effort ? { effort } : {}) };
 
-  // Service tier: suffix > config default
-  const serviceTier =
-    parsed.serviceTier ??
-    config.model.default_service_tier ??
-    null;
-  if (serviceTier) {
-    request.service_tier = serviceTier;
-  }
-
   // Response format: translate responseMimeType + responseSchema → text.format
   let tupleSchema: Record<string, unknown> | null = null;
   const mimeType = req.generationConfig?.responseMimeType;

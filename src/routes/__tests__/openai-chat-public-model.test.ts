@@ -5,7 +5,6 @@ const mockConfig = {
   model: {
     default: "qwen_3_5_ksg_gmzz",
     default_reasoning_effort: "medium",
-    default_service_tier: null as string | null,
   },
   auth: {
     jwt_token: undefined as string | undefined,
@@ -190,7 +189,7 @@ describe("standard OpenAI chat route", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "qwen_3_5_ksg_gmzz-high-fast",
+        model: "qwen_3_5_ksg_gmzz-high",
         stream: false,
         messages: [
           { role: "user", content: "我在杭州。" },
@@ -207,7 +206,6 @@ describe("standard OpenAI chat route", () => {
 
     expect(mockCreateResponse).toHaveBeenCalledTimes(1);
     expect(mockCreateResponse.mock.calls[0][0].model).toBe("gpt-5.4");
-    expect(mockCreateResponse.mock.calls[0][0].service_tier).toBe("fast");
     expect(mockCreateResponse.mock.calls[0][0].reasoning.effort).toBe("high");
     expect(mockCreateResponse.mock.calls[0][0].input).toEqual([
       expect.objectContaining({ role: "user", content: "我在杭州。" }),

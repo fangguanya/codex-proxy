@@ -194,7 +194,7 @@ Pass "Chat completion succeeded and outward model stayed at $Model"
 Write-Host "[verify-8080] Assistant reply: $assistantText"
 
 $suffixBody = @{
-  model = "$Model-high-fast"
+  model = "$Model-high"
   stream = $false
   messages = @(
     @{
@@ -204,7 +204,7 @@ $suffixBody = @{
   )
 }
 
-Step "Checking suffix parsing with model $Model-high-fast"
+Step "Checking suffix parsing with model $Model-high"
 
 $suffixChat = Invoke-JsonRequest -Method POST -Url "$BaseUrl/chat/completions" -Headers $headers -Body $suffixBody
 
