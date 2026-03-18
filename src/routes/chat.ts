@@ -9,7 +9,7 @@ import {
   collectCodexResponse,
 } from "../translation/codex-to-openai.js";
 import { getConfig } from "../config.js";
-import { parseModelName, buildDisplayModelName } from "../models/model-store.js";
+import { getPublicModelName } from "../models/model-store.js";
 import {
   handleProxyRequest,
   type FormatAdapter,
@@ -123,7 +123,7 @@ export function createChatRoutes(
     const req = parsed.data;
 
     const { codexRequest, tupleSchema } = translateToCodexRequest(req);
-    const displayModel = buildDisplayModelName(parseModelName(req.model));
+    const displayModel = getPublicModelName(req.model);
     const wantReasoning = !!req.reasoning_effort;
 
     return handleProxyRequest(

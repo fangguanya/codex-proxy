@@ -19,6 +19,21 @@ import { getConfig } from "../config.js";
 /** Stable timestamp used for all model `created` fields (2023-11-14T22:13:20Z). */
 const MODEL_CREATED_TIMESTAMP = 1700000000;
 
+function getPublicOpenAIModels(): OpenAIModel[] {
+  const aliases = getModelAliases();
+  const aliasIds = Object.keys(aliases);
+  if (aliasIds.length > 0) {
+    return aliasIds.map((alias) => ({
+      id: alias,
+      object: "model",
+      created: MODEL_CREATED_TIMESTAMP,
+      owned_by: "openai",
+    }));
+  }
+
+  return getModelCatalog().map(toOpenAIModel);
+}
+
 function toOpenAIModel(info: CodexModelInfo): OpenAIModel {
   return {
     id: info.id,
@@ -32,19 +47,7 @@ export function createModelRoutes(): Hono {
   const app = new Hono();
 
   app.get("/v1/models", (c) => {
-    const catalog = getModelCatalog();
-    const aliases = getModelAliases();
-
-    // Include catalog models + aliases as separate entries
-    const models: OpenAIModel[] = catalog.map(toOpenAIModel);
-    for (const alias of Object.keys(aliases)) {
-      models.push({
-        id: alias,
-        object: "model",
-        created: MODEL_CREATED_TIMESTAMP,
-        owned_by: "openai",
-      });
-    }
+    const models = getPublicOpenAIModels();
     const response: OpenAIModelList = { object: "list", data: models };
     return c.json(response);
   });

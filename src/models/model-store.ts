@@ -359,6 +359,21 @@ export function buildDisplayModelName(parsed: ParsedModelName): string {
   return name;
 }
 
+/**
+ * Return the single public model name exposed to clients.
+ * Internal canonical IDs and suffixes must not leak outward.
+ */
+export function getPublicModelName(input?: string): string {
+  const configuredDefault = getConfig().model.default.trim();
+  if (_aliases[configuredDefault]) return configuredDefault;
+
+  const resolved = input ? resolveModelId(input) : resolveModelId(configuredDefault);
+  const publicAlias = Object.entries(_aliases).find(([, target]) => target === resolved)?.[0];
+  if (publicAlias) return publicAlias;
+
+  return configuredDefault || resolved;
+}
+
 // ── Getters ────────────────────────────────────────────────────────
 
 /**
@@ -368,7 +383,9 @@ export function resolveModelId(input: string): string {
   const trimmed = input.trim();
   if (_aliases[trimmed]) return _aliases[trimmed];
   if (_catalog.some((m) => m.id === trimmed)) return trimmed;
-  return getConfig().model.default;
+  const fallback = getConfig().model.default.trim();
+  if (_aliases[fallback]) return _aliases[fallback];
+  return fallback;
 }
 
 /**

@@ -41,6 +41,7 @@ vi.mock("fs", () => ({
   writeFileSync: vi.fn(),
   existsSync: vi.fn(() => false),
   mkdirSync: vi.fn(),
+  renameSync: vi.fn(),
 }));
 
 import { AccountPool } from "../account-pool.js";

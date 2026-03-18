@@ -16,7 +16,7 @@ import {
   collectCodexToAnthropicResponse,
 } from "../translation/codex-to-anthropic.js";
 import { getConfig } from "../config.js";
-import { parseModelName, buildDisplayModelName } from "../models/model-store.js";
+import { getPublicModelName } from "../models/model-store.js";
 import {
   handleProxyRequest,
   type FormatAdapter,
@@ -105,7 +105,7 @@ export function createMessagesRoutes(
       cookieJar,
       {
         codexRequest,
-        model: buildDisplayModelName(parseModelName(req.model)),
+        model: getPublicModelName(req.model),
         isStreaming: req.stream,
       },
       makeAnthropicFormat(wantThinking),

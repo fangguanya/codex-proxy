@@ -14,7 +14,7 @@ import type { CodexResponsesRequest, CodexInputItem, CodexApi } from "../proxy/c
 import { getConfig } from "../config.js";
 import { prepareSchema } from "../translation/shared-utils.js";
 import { reconvertTupleValues } from "../translation/tuple-schema.js";
-import { parseModelName, resolveModelId, getModelInfo, buildDisplayModelName } from "../models/model-store.js";
+import { parseModelName, resolveModelId, getModelInfo, getPublicModelName } from "../models/model-store.js";
 import { EmptyResponseError } from "../translation/codex-event-extractor.js";
 import {
   handleProxyRequest,
@@ -290,7 +290,7 @@ export function createResponsesRoutes(
     const rawModel = typeof body.model === "string" ? body.model : "codex";
     const parsed = parseModelName(rawModel);
     const modelId = resolveModelId(parsed.modelId);
-    const displayModel = buildDisplayModelName(parsed);
+    const displayModel = getPublicModelName(rawModel);
     const modelInfo = getModelInfo(modelId);
 
     // Build CodexResponsesRequest
